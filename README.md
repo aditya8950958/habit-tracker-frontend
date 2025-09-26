@@ -14,6 +14,15 @@ A modern, visually appealing React-based application for tracking, analyzing, an
 - **Custom Habit Templates**: Start quickly with ready-made templates for health, productivity, and wellness, or create your own.
 - **Motivational Quotes**: Stay inspired with daily motivational quotes displayed on your dashboard.
 
+## Screenshots
+
+<div align="center">
+  <img src="https://github.com/aditya8950958/habit-tracker-frontend/blob/main/Screenshot%202025-09-26%20133747.png" alt="Dashboard" width="400"/>
+  <img src="https://github.com/aditya8950958/habit-tracker-frontend/blob/main/Screenshot%202025-09-26%20133722.png" alt="Analytics" width="400"/>
+  <img src="https://github.com/aditya8950958/habit-tracker-frontend/blob/main/Screenshot%202025-09-26%20133756.png" alt="Templates" width="400"/>
+  <img src="https://github.com/aditya8950958/habit-tracker-frontend/blob/main/Screenshot%202025-09-26%20133809.png" alt="Progress" width="400"/>
+</div>
+
 ## How It Works
 
 1. **Create Your Habits**: Add habits you want to build. Set custom schedules, reminders, and goals.
@@ -48,10 +57,5 @@ A modern, visually appealing React-based application for tracking, analyzing, an
 - `src/App.jsx`: Main application logic and routing.
 - `index.html`: Entry point for the Vite app.
 
-## License
-
-This project is licensed under the MIT License.
-
----
 
 **Start building better habits today!**
