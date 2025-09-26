@@ -523,7 +523,7 @@ const CustomHabitTemplate = ({ onSubmit, onCancel }) => {
             </div>
           )}
 
-          {/* Step 2: Schedule & Preferences */}
+          
           {step === 2 && (
             <div className="space-y-6">
               <h4 className="text-lg font-semibold text-gray-800 mb-4">Schedule & Preferences</h4>
@@ -595,7 +595,7 @@ const CustomHabitTemplate = ({ onSubmit, onCancel }) => {
             </div>
           )}
 
-          {/* Step 3: Icon & Color Selection */}
+          
           {step === 3 && (
             <div className="space-y-8">
               <h4 className="text-lg font-semibold text-gray-800 mb-4">🎉 Appearance & Customization</h4>
@@ -603,7 +603,7 @@ const CustomHabitTemplate = ({ onSubmit, onCancel }) => {
               <HabitPreview />
               
               <div className="grid lg:grid-cols-2 gap-8">
-                {/* Icon Selection */}
+               
                 <div>
                   <h4 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
                     <Target className="h-5 w-5 text-green-600" />
@@ -613,7 +613,7 @@ const CustomHabitTemplate = ({ onSubmit, onCancel }) => {
                   <IconSelectionSection />
                 </div>
 
-                {/* Color Selection */}
+              
                 <div>
                   <h4 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
                     <Sparkles className="h-5 w-5 text-green-600" />
@@ -657,12 +657,12 @@ const CustomHabitTemplate = ({ onSubmit, onCancel }) => {
             </div>
           )}
 
-          {/* FIXED: Action Buttons with proper event handling */}
+         
           <div className="flex justify-between pt-6 border-t border-gray-200 mt-8">
             <div>
               {step > 1 && (
                 <button 
-                  type="button" // ← CRITICAL: Prevents form submission
+                  type="button" 
                   onClick={prevStep} 
                   className="px-6 py-3 text-gray-600 hover:text-gray-800 flex items-center gap-2"
                 >
@@ -673,7 +673,7 @@ const CustomHabitTemplate = ({ onSubmit, onCancel }) => {
             
             <div className="flex space-x-3">
               <button 
-                type="button" // ← CRITICAL: Prevents form submission
+                type="button" 
                 onClick={onCancel} 
                 className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
               >
@@ -682,7 +682,7 @@ const CustomHabitTemplate = ({ onSubmit, onCancel }) => {
               
               {step < 3 ? (
                 <button 
-                  type="button" // ← CRITICAL: This was the main fix!
+                  type="button" 
                   onClick={nextStep} 
                   className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-lg font-medium flex items-center gap-2"
                 >
@@ -690,7 +690,7 @@ const CustomHabitTemplate = ({ onSubmit, onCancel }) => {
                 </button>
               ) : (
                 <button 
-                  type="submit" // ← Only the final submit button should have type="submit"
+                  type="submit" 
                   className="px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg font-medium flex items-center gap-2 shadow-lg"
                 >
                   <Save className="h-4 w-4" /> Create Habit Template
