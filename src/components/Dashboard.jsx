@@ -9,15 +9,15 @@ import {
   PieChart, LineChart, BarChart, TrendingDown,
   Download
 } from 'lucide-react';
-import CustomHabitTemplate from './CustomHabitTemplate'; // Import our separate component
+import CustomHabitTemplate from './CustomHabitTemplate'; 
 
 const Dashboard = ({ onBack, userData, updateUserData }) => {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [showAddHabit, setShowAddHabit] = useState(false);
   const [showTemplates, setShowTemplates] = useState(false);
   const [showMotivation, setShowMotivation] = useState(false);
-  const [showCustomTemplate, setShowCustomTemplate] = useState(false); // NEW: State for custom template modal
-  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]); // NEW: State for date selection
+  const [showCustomTemplate, setShowCustomTemplate] = useState(false); 
+  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]); 
 
   // Enhanced Habit Templates
   const habitTemplates = [
@@ -67,12 +67,12 @@ const Dashboard = ({ onBack, userData, updateUserData }) => {
     }
   ];
 
-  // Enhanced Icon mapping with all available icons
+  
   const iconMap = {
     Dumbbell, Heart, Brain, Book, Calendar, Target, Home, Sun, Moon, Music, Camera, Gamepad2, Code, Coffee, Utensils, Clock, User, Award, TrendingUp, Activity, Bell, Star, Trophy, Medal, Gift, Zap
   };
 
-  // Motivational quotes
+  
   const motivationalQuotes = [
     "The secret of getting ahead is getting started. - Mark Twain",
     "Success is the sum of small efforts repeated day in and day out. - Robert Collier",
@@ -113,11 +113,11 @@ const Dashboard = ({ onBack, userData, updateUserData }) => {
   };
 
   const getHabitCurrentDay = (habit) => {
-    if (!habit.totalDays || habit.totalDays <= 1) return 1; // Default to day 1 for daily habits
+    if (!habit.totalDays || habit.totalDays <= 1) return 1; 
     
     const habitDayKey = `${habit.id}-currentDay`;
     const currentDay = userData.habitDays?.[habitDayKey] || 1;
-    return Math.min(currentDay, habit.totalDays); // Ensure we don't exceed total days
+    return Math.min(currentDay, habit.totalDays); 
   };
 
   const getHabitDisplayInfo = (habit) => {
@@ -138,7 +138,7 @@ const Dashboard = ({ onBack, userData, updateUserData }) => {
     const habit = userData.habits.find(h => h.id === habitId);
     const currentDay = getHabitCurrentDay(habit);
     
-    // Create completion key that includes current day for multi-day habits
+    
     const completionKey = habit.totalDays > 1 
       ? `${habitId}-${selectedDate}-day${currentDay}` 
       : `${habitId}-${selectedDate}`;
@@ -150,11 +150,11 @@ const Dashboard = ({ onBack, userData, updateUserData }) => {
       [completionKey]: !isCurrentlyCompleted
     };
 
-    // If completing a multi-day habit, advance to next day
+    
     let updatedHabitDays = { ...userData.habitDays };
     if (!isCurrentlyCompleted && habit.totalDays > 1) {
       const habitDayKey = `${habitId}-currentDay`;
-      const nextDay = currentDay < habit.totalDays ? currentDay + 1 : 1; // Reset to day 1 after completing all days
+      const nextDay = currentDay < habit.totalDays ? currentDay + 1 : 1; 
       updatedHabitDays[habitDayKey] = nextDay;
     }
     
@@ -232,12 +232,12 @@ const Dashboard = ({ onBack, userData, updateUserData }) => {
 
     setShowCustomTemplate(false);
     
-    // Show success message or notification
+    
     alert('✅ Custom habit template created successfully!');
   };
 
   const deleteHabit = (habitId) => {
-    // Clean up completions for this habit (including multi-day completions)
+    
     const updatedCompletions = { ...userData.completions };
     Object.keys(updatedCompletions).forEach(key => {
       if (key.startsWith(`${habitId}-`)) {
@@ -245,11 +245,11 @@ const Dashboard = ({ onBack, userData, updateUserData }) => {
       }
     });
 
-    // Clean up habit day tracking
+    
     const updatedHabitDays = { ...userData.habitDays };
     delete updatedHabitDays[`${habitId}-currentDay`];
 
-    // Clean up streaks
+    
     const updatedStreaks = { ...userData.streaks };
     delete updatedStreaks[habitId];
 
@@ -264,7 +264,7 @@ const Dashboard = ({ onBack, userData, updateUserData }) => {
   const getHabitStats = () => {
     const today = getToday();
     
-    // Count completed habits for today (checking current day for multi-day habits)
+    
     const completedToday = userData.habits.filter(habit => {
       const currentDay = getHabitCurrentDay(habit);
       const completionKey = habit.totalDays > 1 
@@ -287,12 +287,12 @@ const Dashboard = ({ onBack, userData, updateUserData }) => {
     
     last7Days.forEach(date => {
       userData.habits.forEach(habit => {
-        // For multi-day habits, check if any day was completed on this date
+        
         if (habit.totalDays > 1) {
           for (let day = 1; day <= habit.totalDays; day++) {
             if (userData.completions[`${habit.id}-${date}-day${day}`]) {
               totalCompleted++;
-              break; // Count only once per habit per day
+              break; 
             }
           }
         } else {
@@ -315,7 +315,7 @@ const Dashboard = ({ onBack, userData, updateUserData }) => {
 
   const stats = getHabitStats();
 
-  // Get weekly chart data
+  
   const getWeeklyChartData = () => {
     const last7Days = Array.from({length: 7}, (_, i) => {
       const date = new Date();
@@ -391,19 +391,18 @@ const Dashboard = ({ onBack, userData, updateUserData }) => {
         habits: sampleHabits,
         completions: {},
         streaks: {},
-        habitDays: {} // Initialize habitDays for tracking multi-day habit progress
+        habitDays: {} 
       });
     }
   }, []);
 
-  // Existing Custom Habit Form (keep as backup or remove if not needed)
+  
   const CustomHabitForm = ({ onSubmit, onCancel }) => {
-    // ... existing custom habit form code (simplified for space)
-    // This can be removed if you're only using the separate CustomHabitTemplate
+   
     return <div>Old Custom Habit Form - Can be removed</div>;
   };
 
-  // Template Selection Modal
+  l
   const TemplateModal = ({ onClose, onSelect }) => {
     const [searchTerm, setSearchTerm] = useState('');
 
@@ -491,7 +490,7 @@ const Dashboard = ({ onBack, userData, updateUserData }) => {
     );
   };
 
-  // Chart Components
+  
   const WeeklyChart = () => (
     <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-8">
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 sm:mb-6 gap-2 sm:gap-0">
@@ -524,7 +523,7 @@ const Dashboard = ({ onBack, userData, updateUserData }) => {
     </div>
   );
 
-  // Dashboard View
+
   const DashboardView = () => (
     <div className="space-y-6 sm:space-y-8">
       {/* Stats Cards */}
@@ -578,7 +577,7 @@ const Dashboard = ({ onBack, userData, updateUserData }) => {
         </div>
       </div>
 
-      {/* Enhanced Quick Actions with Custom Template Button */}
+     
       <div className="flex gap-2 sm:gap-4 flex-wrap">
         <button
           onClick={() => setShowTemplates(true)}
@@ -589,7 +588,7 @@ const Dashboard = ({ onBack, userData, updateUserData }) => {
           <span className="sm:hidden">Templates</span>
         </button>
         
-        {/* NEW: Custom Template Button */}
+       
         <button
           onClick={() => setShowCustomTemplate(true)}
           className="bg-purple-500 hover:bg-purple-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg flex items-center gap-2 font-medium shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 text-sm sm:text-base"
@@ -600,7 +599,7 @@ const Dashboard = ({ onBack, userData, updateUserData }) => {
         </button>
       </div>
 
-      {/* Today's Habits */}
+      
       <div className="bg-white rounded-2xl shadow-lg p-4 sm:p-8">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 sm:mb-6 gap-4 sm:gap-0">
           <h2 className="text-xl sm:text-2xl font-bold text-gray-800 flex items-center gap-2">
@@ -608,7 +607,7 @@ const Dashboard = ({ onBack, userData, updateUserData }) => {
             {getDateDisplay(selectedDate)}'s Habits
           </h2>
           
-          {/* Date Navigation */}
+          
           <div className="flex items-center gap-2">
             <button
               onClick={() => setSelectedDate(getToday())}
@@ -665,7 +664,7 @@ const Dashboard = ({ onBack, userData, updateUserData }) => {
               const currentDay = getHabitCurrentDay(habit);
               const habitDisplay = getHabitDisplayInfo(habit);
               
-              // Check if current day is completed for multi-day habits on selected date
+              e
               const completionKey = habit.totalDays > 1 
                 ? `${habit.id}-${selectedDate}-day${currentDay}` 
                 : `${habit.id}-${selectedDate}`;
@@ -674,14 +673,14 @@ const Dashboard = ({ onBack, userData, updateUserData }) => {
               const streak = userData.streaks[habit.id] || 0;
               const IconComponent = iconMap[habit.icon] || Target;
 
-              // Check if habit should be shown on selected date (based on selectedDays)
+              
               const selectedDateObj = new Date(selectedDate);
               const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
               const dayName = dayNames[selectedDateObj.getDay()];
               const shortDayName = dayName === 'Sun' ? 'Sun' : dayName === 'Mon' ? 'Mon' : dayName === 'Tue' ? 'Tue' : dayName === 'Wed' ? 'Wed' : dayName === 'Thu' ? 'Thu' : dayName === 'Fri' ? 'Fri' : 'Sat';
               
               if (habit.selectedDays && !habit.selectedDays.includes(shortDayName)) {
-                return null; // Don't show habit on days it's not scheduled
+                return null; 
               }
 
               return (
@@ -691,7 +690,7 @@ const Dashboard = ({ onBack, userData, updateUserData }) => {
                       <button
                         onClick={() => toggleHabit(habit.id)}
                         className="transition-transform hover:scale-110 flex-shrink-0"
-                        disabled={selectedDate < getToday()} // Disable for past dates
+                        disabled={selectedDate < getToday()} 
                       >
                         {isCompleted ? (
                           <CheckCircle2 className="h-6 w-6 sm:h-8 sm:w-8 text-green-500" />
@@ -786,7 +785,7 @@ const Dashboard = ({ onBack, userData, updateUserData }) => {
         />
       )}
 
-      {/* NEW: Custom Template Modal Integration */}
+      
       {showCustomTemplate && (
         <CustomHabitTemplate
           onSubmit={handleCustomTemplateSubmit}
@@ -796,7 +795,7 @@ const Dashboard = ({ onBack, userData, updateUserData }) => {
     </div>
   );
 
-  // Progress View
+  
   const ProgressView = () => (
     <div className="space-y-6 sm:space-y-8">
       <div className="text-center mb-6 sm:mb-8">
@@ -860,7 +859,7 @@ const Dashboard = ({ onBack, userData, updateUserData }) => {
     </div>
   );
 
-  // Motivation View
+  
   const MotivationView = () => {
     const [currentQuote] = useState(motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)]);
 
@@ -975,7 +974,7 @@ const Dashboard = ({ onBack, userData, updateUserData }) => {
     );
   };
 
-  // Settings View
+ 
   const SettingsView = () => (
     <div className="space-y-6 sm:space-y-8">
       <div className="text-center mb-6 sm:mb-8">
@@ -1075,7 +1074,7 @@ const Dashboard = ({ onBack, userData, updateUserData }) => {
     </div>
   );
 
-  // Render Content Function
+  
   const renderContent = () => {
     console.log('Current activeTab:', activeTab);
     switch(activeTab) {
@@ -1093,7 +1092,7 @@ const Dashboard = ({ onBack, userData, updateUserData }) => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-green-50">
-      {/* Top Bar */}
+     
       <div className="bg-white shadow-sm border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
@@ -1122,9 +1121,9 @@ const Dashboard = ({ onBack, userData, updateUserData }) => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
         <div className="flex flex-col lg:flex-row gap-4 lg:gap-8">
-          {/* Sidebar Navigation */}
+         
           <div className="w-full lg:w-64 order-2 lg:order-1">
-            {/* Mobile Navigation - Horizontal Scroll */}
+           
             <div className="lg:hidden flex space-x-2 overflow-x-auto pb-2 mb-4">
               <button
                 onClick={() => setActiveTab('dashboard')}
@@ -1175,7 +1174,7 @@ const Dashboard = ({ onBack, userData, updateUserData }) => {
               </button>
             </div>
 
-            {/* Desktop Navigation - Vertical */}
+            
             <div className="hidden lg:block space-y-2">
               <button
                 onClick={() => setActiveTab('dashboard')}
@@ -1227,7 +1226,7 @@ const Dashboard = ({ onBack, userData, updateUserData }) => {
             </div>
           </div>
 
-          {/* Main Content */}
+          
           <div className="flex-1 order-1 lg:order-2">
             {renderContent()}
           </div>
