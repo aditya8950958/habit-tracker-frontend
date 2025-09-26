@@ -24,20 +24,20 @@ const CustomHabitTemplate = ({ onSubmit, onCancel }) => {
   const [errors, setErrors] = useState({});
   const [iconSearchTerm, setIconSearchTerm] = useState('');
 
-  // Debug logging
+
   useEffect(() => {
     console.log('🔍 Current step:', step);
     console.log('🔍 FormData:', formData);
   }, [step]);
 
-  // Enhanced Icon mapping with all available icons
+ 
   const iconMap = {
     Target, Heart, Brain, Book, Dumbbell, Coffee, Camera, Music, 
     Star, Trophy, Medal, Gift, Zap, Activity, Award, TrendingUp,
     Utensils, Home, Sun, Moon, Bell, Calendar, Gamepad2, Code
   };
 
-  // Complete icon library with categories and colors
+  
   const iconCategories = [
     {
       name: 'Health & Fitness',
@@ -95,7 +95,7 @@ const CustomHabitTemplate = ({ onSubmit, onCancel }) => {
     }
   ];
 
-  // Enhanced color options with names and preview
+
   const colorOptions = [
     { name: 'Emerald', value: 'from-green-400 to-emerald-500', preview: 'bg-gradient-to-r from-green-400 to-emerald-500' },
     { name: 'Ocean', value: 'from-blue-400 to-cyan-500', preview: 'bg-gradient-to-r from-blue-400 to-cyan-500' },
@@ -131,14 +131,14 @@ const CustomHabitTemplate = ({ onSubmit, onCancel }) => {
     'Finance & Career', 'Custom'
   ];
 
-  // Get filtered icons based on search
+ 
   const getAllIcons = () => {
     let allIcons = [];
     iconCategories.forEach(category => {
       allIcons = [...allIcons, ...category.icons];
     });
     
-    // Filter by search term
+    
     if (iconSearchTerm) {
       allIcons = allIcons.filter(icon => 
         icon.name.toLowerCase().includes(iconSearchTerm.toLowerCase())
@@ -148,7 +148,7 @@ const CustomHabitTemplate = ({ onSubmit, onCancel }) => {
     return allIcons;
   };
 
-  // Toggle day selection
+  
   const toggleDay = (dayShort) => {
     setFormData(prev => ({
       ...prev,
@@ -158,7 +158,7 @@ const CustomHabitTemplate = ({ onSubmit, onCancel }) => {
     }));
   };
 
-  // Quick day selection presets
+  
   const selectDayPreset = (preset) => {
     switch(preset) {
       case 'everyday':
@@ -178,7 +178,7 @@ const CustomHabitTemplate = ({ onSubmit, onCancel }) => {
     }
   };
 
-  // FIXED: Validation function
+  
   const validateStep = (stepNumber) => {
     const newErrors = {};
     console.log('🔍 Validating step:', stepNumber);
@@ -201,10 +201,10 @@ const CustomHabitTemplate = ({ onSubmit, onCancel }) => {
     return isValid;
   };
 
-  // FIXED: Step navigation functions with proper event handling
+  
   const nextStep = (e) => {
-    e.preventDefault(); // ← CRITICAL: Prevent form submission
-    e.stopPropagation(); // ← CRITICAL: Stop event bubbling
+    e.preventDefault(); 
+    e.stopPropagation(); 
     
     console.log('🔍 Next button clicked, current step:', step);
     
@@ -232,7 +232,7 @@ const CustomHabitTemplate = ({ onSubmit, onCancel }) => {
     setErrors({});
   };
 
-  // FIXED: Submit handler
+ 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('🔍 Form submitted, current step:', step);
@@ -244,7 +244,7 @@ const CustomHabitTemplate = ({ onSubmit, onCancel }) => {
     }
   };
 
-  // Live Preview Component
+ 
   const HabitPreview = () => {
     const IconComponent = iconMap[formData.icon] || Target;
     return (
@@ -289,13 +289,13 @@ const CustomHabitTemplate = ({ onSubmit, onCancel }) => {
     );
   };
 
-  // Icon Selection Component
+  
   const IconSelectionSection = () => {
     const filteredIcons = getAllIcons();
     
     return (
       <div className="space-y-4">
-        {/* Search Bar */}
+      
         <div className="relative">
           <input
             type="text"
@@ -311,7 +311,7 @@ const CustomHabitTemplate = ({ onSubmit, onCancel }) => {
           </div>
         </div>
 
-        {/* Selected Icon Preview */}
+       
         {formData.icon && (
           <div className="flex items-center gap-3 p-3 bg-green-50 rounded-lg border border-green-200">
             <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
@@ -326,7 +326,7 @@ const CustomHabitTemplate = ({ onSubmit, onCancel }) => {
           </div>
         )}
 
-        {/* Icon Grid */}
+        
         <div className="max-h-64 overflow-y-auto border border-gray-200 rounded-lg p-4">
           <div className="grid grid-cols-6 sm:grid-cols-8 gap-3">
             {filteredIcons.map((icon, index) => {
@@ -374,7 +374,7 @@ const CustomHabitTemplate = ({ onSubmit, onCancel }) => {
           )}
         </div>
 
-        {/* Popular Icons Quick Select */}
+        
         <div className="bg-blue-50 p-4 rounded-lg">
           <h5 className="text-sm font-medium text-blue-800 mb-3">Popular Choices</h5>
           <div className="flex flex-wrap gap-2">
@@ -405,7 +405,7 @@ const CustomHabitTemplate = ({ onSubmit, onCancel }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[95vh] overflow-y-auto">
-        {/* Header */}
+        
         <div className="flex justify-between items-center p-6 border-b border-gray-200 bg-gradient-to-r from-green-50 to-emerald-50">
           <div>
             <h3 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
@@ -419,7 +419,7 @@ const CustomHabitTemplate = ({ onSubmit, onCancel }) => {
           </button>
         </div>
 
-        {/* Progress Bar */}
+        
         <div className="px-6 py-4 bg-gray-50">
           <div className="w-full bg-gray-200 rounded-full h-3">
             <div 
@@ -434,14 +434,14 @@ const CustomHabitTemplate = ({ onSubmit, onCancel }) => {
           </div>
         </div>
 
-        {/* FIXED: Form with proper submit handling */}
+       
         <form onSubmit={handleSubmit} className="p-6">
-          {/* Debug Info */}
+          
           <div className="mb-4 p-2 bg-yellow-100 text-yellow-800 text-sm rounded">
             🔍 Debug: Currently showing step {step}
           </div>
 
-          {/* Step 1: Basic Information */}
+          
           {step === 1 && (
             <div className="space-y-6">
               <h4 className="text-lg font-semibold text-gray-800 mb-4">Basic Information</h4>
