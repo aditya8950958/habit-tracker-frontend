@@ -326,10 +326,10 @@ const Dashboard = ({ onBack, userData, updateUserData }) => {
     return last7Days.map(date => {
       const dateStr = date.toISOString().split('T')[0];
       
-      // Count completed habits for this date (including multi-day habits)
+      
       const completed = userData.habits.filter(habit => {
         if (habit.totalDays > 1) {
-          // For multi-day habits, check if any day was completed on this date
+          
           for (let day = 1; day <= habit.totalDays; day++) {
             if (userData.completions[`${habit.id}-${dateStr}-day${day}`]) {
               return true;
@@ -355,7 +355,7 @@ const Dashboard = ({ onBack, userData, updateUserData }) => {
 
   const weeklyData = getWeeklyChartData();
 
-  // Initialize with sample data if empty
+ 
   useEffect(() => {
     if (userData.habits.length === 0) {
       const sampleHabits = [
@@ -770,7 +770,7 @@ const Dashboard = ({ onBack, userData, updateUserData }) => {
         )}
       </div>
 
-      {/* All Modals */}
+      
       {showTemplates && (
         <TemplateModal
           onClose={() => setShowTemplates(false)}
